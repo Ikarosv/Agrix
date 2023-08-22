@@ -42,4 +42,13 @@ public class FarmsService {
   public List<Farm> getFarms() {
     return farmRepository.findAll();
   }
+
+  /**
+   *  Gets a farm by id.
+   *
+   * @return The farm.
+   */
+  public Farm getFarmById(Integer id) {
+    return farmRepository.findById(id).orElse(null);
+  }
 }
