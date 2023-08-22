@@ -4,18 +4,16 @@ import com.betrybe.agrix.dtos.FarmsDto;
 import com.betrybe.agrix.exceptions.NotFound;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.services.FarmsService;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Farms controller.
@@ -49,6 +47,12 @@ public class Farms {
     return ResponseEntity.status(HttpStatus.OK).body(this.farmsService.getFarms());
   }
 
+  /**
+   * GET /farms/{id}.
+   *
+   * @param id The farm's id.
+   * @return The farm.
+   */
   @GetMapping("/{id}")
   public ResponseEntity<Farm> getFarmById(@PathVariable Integer id) {
     Optional<Farm> farm = Optional.ofNullable(this.farmsService.getFarmById(id));
