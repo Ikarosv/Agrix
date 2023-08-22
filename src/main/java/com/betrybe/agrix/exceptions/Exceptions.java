@@ -9,6 +9,7 @@ public abstract class Exceptions extends RuntimeException {
   }
 
   int status;
+
   /**
    * Constructor.
    *
