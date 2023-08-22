@@ -6,9 +6,12 @@ import com.betrybe.agrix.services.FarmsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Farms controller.
@@ -33,8 +36,12 @@ public class Farms {
   @PostMapping()
   public ResponseEntity<Farm> postFarm(@RequestBody FarmsDto farm) {
     Farm farmEntity = this.farmsService.createFarm(farm.toFarm());
-    System.out.println(farmEntity);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(farmEntity);
+  }
+
+  @GetMapping()
+  public ResponseEntity<List<Farm>> getFarm() {
+    return ResponseEntity.status(HttpStatus.OK).body(this.farmsService.getFarms());
   }
 }

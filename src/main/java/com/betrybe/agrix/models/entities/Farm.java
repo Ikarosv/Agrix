@@ -31,6 +31,8 @@ public class Farm {
     this.size = size;
   }
 
+  public Farm() {}
+
   public Integer getId() {
     return id;
   }

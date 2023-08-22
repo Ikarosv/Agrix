@@ -5,6 +5,8 @@ import com.betrybe.agrix.models.repositories.FarmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * This class represents the service for the Farm entity.
  */
@@ -30,5 +32,14 @@ public class FarmsService {
    */
   public Farm createFarm(Farm farm) {
     return farmRepository.save(farm);
+  }
+
+  /**
+   *  Gets farms.
+   *
+   * @return The farms.
+   */
+  public List<Farm> getFarms() {
+    return farmRepository.findAll();
   }
 }
