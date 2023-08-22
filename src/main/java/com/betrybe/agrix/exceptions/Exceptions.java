@@ -1,5 +1,8 @@
 package com.betrybe.agrix.exceptions;
 
+/**
+ * This class represents the Exceptions exception.
+ */
 public abstract class Exceptions extends RuntimeException {
   public int getStatus() {
     return status;
