@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * This class represents the ControllerAdvices advice.
+ */
 @ControllerAdvice
 public class ControllerAdvices {
 
