@@ -1,10 +1,14 @@
 package com.betrybe.agrix.models.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 
 /**
  * Crop entity.
@@ -15,8 +19,13 @@ public class Crop {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+  @Column(name = "farmId")
   private Integer farmId;
   private String name;
+  private Double plantedArea;
+  @ManyToOne
+  @JoinColumn(name = "farmId", insertable = false, updatable = false)
+  private Farm farm;
 
   public Integer getId() {
     return id;
@@ -26,11 +35,11 @@ public class Crop {
     this.id = id;
   }
 
-  public Integer getFarm_id() {
+  public Integer getFarmId() {
     return farmId;
   }
 
-  public void setFarm_id(Integer farmId) {
+  public void setFarmId(Integer farmId) {
     this.farmId = farmId;
   }
 
@@ -50,7 +59,6 @@ public class Crop {
     this.plantedArea = plantedArea;
   }
 
-  private Double plantedArea;
 
   /**
    * Crop constructor.

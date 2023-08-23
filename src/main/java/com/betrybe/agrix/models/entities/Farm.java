@@ -1,10 +1,9 @@
 package com.betrybe.agrix.models.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * This class represents a farm.
@@ -17,6 +16,18 @@ public class Farm {
   private Integer id;
   private String name;
   private Double size;
+  @OneToMany
+  @JsonIgnore
+  private List<Crop> crops;
+
+  public List<Crop> getCrops() {
+    return crops;
+  }
+
+  public void setCrops(List<Crop> crops) {
+    this.crops = crops;
+  }
+
 
   /**
    * The farm's constructor.

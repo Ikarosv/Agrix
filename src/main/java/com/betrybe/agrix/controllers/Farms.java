@@ -1,11 +1,16 @@
 package com.betrybe.agrix.controllers;
 
+import com.betrybe.agrix.dtos.CreateCropDto;
 import com.betrybe.agrix.dtos.FarmsDto;
 import com.betrybe.agrix.exceptions.NotFound;
+import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
+import com.betrybe.agrix.services.CropsService;
 import com.betrybe.agrix.services.FarmsService;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +27,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/farms")
 public class Farms {
   private final FarmsService farmsService;
+  private final CropsService cropsService;
 
   /**
    * Constructor.
    *
    * @param farmsService Farms service.
    */
-  public Farms(FarmsService farmsService) {
+  @Autowired
+  public Farms(FarmsService farmsService, CropsService cropsService) {
     this.farmsService = farmsService;
+    this.cropsService = cropsService;
   }
 
   /**
@@ -61,5 +69,19 @@ public class Farms {
     }
 
     return ResponseEntity.status(HttpStatus.OK).body(farm.get());
+  }
+
+  /**
+   * POST /farms/{id}/crops.
+   */
+  @PostMapping("/{farmId}/crops")
+  public ResponseEntity<Crop> postCrop(@PathVariable Integer farmId, @RequestBody CreateCropDto crop) {
+    Farm farm = this.farmsService.getFarmById(farmId);
+    if (farm == null) {
+      throw new NotFound("Fazenda não encontrada!");
+    }
+    Crop farmEntity = this.cropsService.createCrop(crop.toCrop(farmId));
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(farmEntity);
   }
 }
