@@ -27,6 +27,9 @@ public class Crop {
   @JoinColumn(name = "farmId", insertable = false, updatable = false)
   private Farm farm;
 
+  public Crop() {
+  }
+
   public Integer getId() {
     return id;
   }

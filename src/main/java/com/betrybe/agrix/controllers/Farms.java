@@ -9,6 +9,7 @@ import com.betrybe.agrix.services.CropsService;
 import com.betrybe.agrix.services.FarmsService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,7 @@ public class Farms {
    */
   @PostMapping("/{farmId}/crops")
   public ResponseEntity<Crop> postCrop(
-      @PathVariable Integer farmId, @RequestBody CreateCropDto crop
+          @PathVariable Integer farmId, @RequestBody CreateCropDto crop
   ) {
     Farm farm = this.farmsService.getFarmById(farmId);
     if (farm == null) {
@@ -84,5 +85,21 @@ public class Farms {
     Crop farmEntity = this.cropsService.createCrop(crop.toCrop(farmId));
 
     return ResponseEntity.status(HttpStatus.CREATED).body(farmEntity);
+  }
+
+  /**
+   * GET /farms/{id}/crops.
+   *
+   * @param id The farm's id.
+   * @return The farm.
+   */
+  @GetMapping("/{id}/crops")
+  public ResponseEntity<Stream<Crop>> getCropsByFarmId(@PathVariable Integer id) {
+    Optional<Farm> farm = Optional.ofNullable(this.farmsService.getFarmById(id));
+    if (farm.isEmpty()) {
+      throw new NotFound("Fazenda não encontrada!");
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body(this.cropsService.getCropsByFarmId(id));
   }
 }
