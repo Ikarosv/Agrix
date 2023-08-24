@@ -36,4 +36,8 @@ public class CropsService {
   public List<Crop> getAllCrops() {
     return this.cropRepository.findAll();
   }
+
+  public Crop getCropById(Integer id) {
+    return this.cropRepository.findById(id).orElse(null);
+  }
 }
